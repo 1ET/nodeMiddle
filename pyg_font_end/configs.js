@@ -9,3 +9,11 @@ exports.site = {
     description: '京东JD.COM-专业的综合网上购物商城，为您提供正品低价的购物选择、优质便捷的服务体验。商品来自全球数十万品牌商家，囊括家电、手机、电脑、服装、居家、母婴、美妆、个护、食品、生鲜等丰富品类，满足各种购物需求。',
     Keywords: '网上购物,网上商城,家电,手机,电脑,服装,居家,母婴,美妆,个护,食品,生鲜,京东'
 }
+
+// 2.封装axios配置
+exports.api = {
+    baseURL: 'http://localhost:8000/v1/',
+    timeout: 5000,
+    username: 'newshop-frontend',
+    password: 'd8667837fce5a0270a35f4a8fa14be479fadc774'
+}
