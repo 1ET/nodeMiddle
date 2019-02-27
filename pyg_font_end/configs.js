@@ -12,7 +12,7 @@ exports.site = {
 
 // 2.封装axios配置
 exports.api = {
-    baseURL: 'http://localhost:8000/v1/',
+    baseURL: 'https://ns-api.uieee.com/v1',
     timeout: 5000,
     username: 'newshop-frontend',
     password: 'd8667837fce5a0270a35f4a8fa14be479fadc774'

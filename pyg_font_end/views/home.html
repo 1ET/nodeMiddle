@@ -6,6 +6,23 @@
 
 {{block 'scripts'}}
 <script src="assets/js/sui.carousel.js"></script>
+<script>
+  $(function () {
+    $('#xxlChg').on('click', function () {
+      $.get('/like', function (data) {
+        let html = ''
+        data.rest.forEach(item => {
+          html += `        <li class="yui3-u-1-6">
+          <a href="item/${item.id}" class="pic"><img src="${item.thumbnail}"></a>
+          <p>${item.name}</p>
+          <h3>¥${item.price}</h3>
+        </li>`
+        });
+        $('#picLBxxl').html(html)
+      })
+    })
+  })
+</script>
 {{/block}}
 
 {{block 'content'}}
@@ -110,40 +127,17 @@
   <div class="py-container">
     <div class="title">
       <h3 class="fl">猜你喜欢</h3>
-      <a href="#" class="fr tip changeBnt" id="xxlChg"><i></i>换一换</a>
+      <a href="JavaScript:;" class="fr tip changeBnt" id="xxlChg"><i></i>换一换</a>
     </div>
     <div class="bd">
       <ul class="clearfix yui3-g Favourate picLB" id="picLBxxl">
+        {{each likes}}
         <li class="yui3-u-1-6">
-          <a href="item.html" class="pic"><img src="/uploads/like_01.png"></a>
-          <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
-          <h3>¥116.00</h3>
+          <a href="item/{{$value.id}}" class="pic"><img src="{{$value.thumbnail}}"></a>
+          <p>{{$value.name}}</p>
+          <h3>¥{{$value.price}}</h3>
         </li>
-        <li class="yui3-u-1-6">
-          <a href="item.html" class="pic"><img src="/uploads/like_01.png"></a>
-          <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
-          <h3>¥116.00</h3>
-        </li>
-        <li class="yui3-u-1-6">
-          <a href="item.html" class="pic"><img src="/uploads/like_01.png"></a>
-          <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
-          <h3>¥116.00</h3>
-        </li>
-        <li class="yui3-u-1-6">
-          <a href="item.html" class="pic"><img src="/uploads/like_01.png"></a>
-          <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
-          <h3>¥116.00</h3>
-        </li>
-        <li class="yui3-u-1-6">
-          <a href="item.html" class="pic"><img src="/uploads/like_01.png"></a>
-          <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
-          <h3>¥116.00</h3>
-        </li>
-        <li class="yui3-u-1-6">
-          <a href="item.html" class="pic"><img src="/uploads/like_01.png"></a>
-          <p>阳光美包新款单肩包女包时尚子母包四件套女</p>
-          <h3>¥116.00</h3>
-        </li>
+        {{/each}}
       </ul>
     </div>
   </div>

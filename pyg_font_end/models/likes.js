@@ -1,7 +1,7 @@
 const instance = require('./instanceAxios')
-// 获取轮播图信息
-exports.getSliders = () => {
-    return instance.get('/settings/home_slides')
+// 获取猜你喜欢数据
+exports.getLike = () => {
+    return instance.get('/products?type=like&limit=6')
         .then(res => res.data)
         .catch(err => Promise.reject(err))
 }
