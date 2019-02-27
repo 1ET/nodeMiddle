@@ -20,8 +20,9 @@ app.listen(5000, () => {
     console.log('正在监听端口5000')
 })
 
-// 处理500
+// 测试路由
 app.get('/', (req, res, next) => {
+    res.locals.site = require('./configs').site
     res.render('home.html')
     // throw createError(500, 'server carch')
 })
