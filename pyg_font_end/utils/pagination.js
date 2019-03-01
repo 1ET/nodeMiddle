@@ -15,7 +15,6 @@ module.exports = (options) => {
     end = end > total ? total : end
     // 获取url对象
     const urlObject = url.parse(options.url, true)
-    console.log(urlObject)
     // console.log(options.url)
     // 设置函数改变url中的page值
     const getUrl = (page) => {
