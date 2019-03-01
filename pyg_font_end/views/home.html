@@ -8,7 +8,7 @@
 <script src="assets/js/sui.carousel.js"></script>
 <script>
   $(function () {
-    $('#xxlChg').on('click', function () {
+    $('#xxlChg').off('click').on('click', function () {
       $.get('/like', function (data) {
         let html = ''
         data.rest.forEach(item => {
