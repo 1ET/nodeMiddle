@@ -87,8 +87,8 @@
                                             <dl>
                                                 <dt><a href="list/{{item1.id}}">{{item1.name}}</a></dt>
                                                 <dd>
-                                                    {{each item1 item2 i}}
-                                                    <em><a href="list/item2">{{item2.name}}</a></em>
+                                                    {{each item1.children item2 i}}
+                                                    <em><a href="list/{{item2.id}}">{{item2.name}}</a></em>
                                                     {{/each}}
                                                 </dd>
                                             </dl>

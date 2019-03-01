@@ -1,7 +1,8 @@
 // 定义和首页路由
 const settingModel = require('../models/settingModel')
-const productModel = require('../models/likes')
+const productModel = require('../models/product')
 
+// 渲染首页
 exports.index = (req, res, next) => {
     Promise.all([settingModel.getSliders(), productModel.getLike()])
         .then(rest => {
@@ -12,7 +13,7 @@ exports.index = (req, res, next) => {
             res.render('home.html')
         }).catch(err => next(err))
 }
-
+// 猜你喜欢
 exports.like = (req, res, next) => {
     productModel.getLike('products?type=like&limit=6')
         .then(data => res.json({ status: 200, rest: data }))
