@@ -80,15 +80,15 @@
                             <div class="all-sort-list2">
                                 {{each Category item i}}
                                 <div class="item">
-                                    <h3><a href="list/{{item.id}}">{{item.name}}</a></h3>
+                                    <h3><a href="/list/{{item.id}}">{{item.name}}</a></h3>
                                     <div class="item-list clearfix">
                                         <div class="subitem">
                                             {{each item.children item1 i}}
                                             <dl>
-                                                <dt><a href="list/{{item1.id}}">{{item1.name}}</a></dt>
+                                                <dt><a href="/list/{{item1.id}}">{{item1.name}}</a></dt>
                                                 <dd>
                                                     {{each item1.children item2 i}}
-                                                    <em><a href="list/{{item2.id}}">{{item2.name}}</a></em>
+                                                    <em><a href="/list/{{item2.id}}">{{item2.name}}</a></em>
                                                     {{/each}}
                                                 </dd>
                                             </dl>

@@ -1,5 +1,6 @@
 const listModel = require('../models/product')
 const categoryModel = require('../models/category')
+const paginationUtil = require('../utils/pagination')
 
 exports.index = (req, res, next) => {
     // 页面所需文件
@@ -16,6 +17,8 @@ exports.index = (req, res, next) => {
             res.locals.list = data[0].list
             res.locals.sort = sort
             res.locals.breadcrumb = data[1]
+            console.log(1234)
+            res.locals.pageHtml = paginationUtil({ page: data[0].page, total: data[0].total })
             res.render('list.html')
             // res.json(data)
         }
