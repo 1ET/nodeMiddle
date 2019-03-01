@@ -11,7 +11,14 @@ exports.index = (req, res, next) => {
     const page = req.query.page || 1
     const per_page = 5
     const sort = req.query.sort || 'commend'
-    listModel.getIndexById(id, page, per_page, sort)
-        .then(data => res.render('list.html'))
+    Promise.all([listModel.getIndexById(id, page, per_page, sort), categoryModel.getCategoryAndParent(id)])
+        .then(data => {
+            res.locals.list = data[0].list
+            res.locals.sort = sort
+            res.locals.breadcrumb = data[1]
+            res.render('list.html')
+            // res.json(data)
+        }
+        )
         .catch(err => next(err))
 }

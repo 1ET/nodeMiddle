@@ -14,7 +14,13 @@
         <!--bread-->
         <div class="bread">
             <ul class="fl sui-breadcrumb">
-                <li class="active">智能手机</li>
+                {{if breadcrumb.parent && breadcrumb.parent.parent}}
+                <li><a href="/list/{{breadcrumb.parent.parent.id}}">{{breadcrumb.parent.parent.name}}</a></li>
+                {{/if}}
+                {{if breadcrumb.parent}}
+                <li><a href="/list/{{breadcrumb.parent.id}}">{{breadcrumb.parent.name}}</a></li>
+                {{/if}}
+                <li class="active">{{breadcrumb.name}}</li>
             </ul>
         </div>
         <!--selector-->
@@ -50,20 +56,33 @@
             <div class="sui-navbar">
                 <div class="navbar-inner filter">
                     <ul class="sui-nav">
-                        <li class="active"><a href="#">综合</a></li>
-                        <li><a href="#">销量</a></li>
-                        <li><a href="#">新品</a></li>
-                        <li><a href="#">评价</a></li>
-                        <li><a href="#">价格</a></li>
+                        <li class="{{sort == 'commend' ? 'active' : ''}}"><a
+                                href="/list/{{breadcrumb.id}}?sort=commend">综合</a></li>
+                        <li class="{{sort == 'quantity' ? 'active' : ''}}"><a
+                                href="/list/{{breadcrumb.id}}?sort=quantity">销量</a></li>
+                        <li class="{{sort == 'market_time' ? 'active' : ''}}"><a
+                                href="/list/{{breadcrumb.id}}?sort=market_time">新品</a>
+                        </li>
+                        {{if sort.includes('price')}}
+                        <li class="active">
+                            <a href="/list/{{breadcrumb.id}}?sort={{sort=='price'?'-price':'price'}}">
+                                价格 <i class="sui-icon {{sort=='price'?'icon-tb-unfold':'icon-tb-fold'}}"></i>
+                            </a>
+                        </li>
+                        {{else}}
+                        <li><a href="/list/{{breadcrumb.id}}?sort=-price">价格</a></li>
+                        {{/if}}
                     </ul>
                 </div>
             </div>
             <div class="goods-list">
                 <ul class="yui3-g">
+                    {{if list.length>1}}
+                    {{each list}}
                     <li class="yui3-u-1-5">
-                        <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-                        <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-                        <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
+                        <div class="p-img"><a href="/list/{{$value.id}}"><img src="{{$value.thumbnail}}"></a></div>
+                        <div class="price"><strong><em>¥</em><i>{{$value.price}}</i></strong></div>
+                        <div class="attr"><em>{{$value.name}}</em></div>
                         <div class="commit"><i class="command">已有2000人评价</i></div>
                         <div class="operate">
                             <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
@@ -71,39 +90,13 @@
                             <a href="#" class="sui-btn btn-bordered">关注</a>
                         </div>
                     </li>
-                    <li class="yui3-u-1-5">
-                        <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-                        <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-                        <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
-                        <div class="commit"><i class="command">已有2000人评价</i></div>
-                        <div class="operate">
-                            <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                            <a href="#" class="sui-btn btn-bordered">对比</a>
-                            <a href="#" class="sui-btn btn-bordered">关注</a>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-                        <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-                        <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
-                        <div class="commit"><i class="command">已有2000人评价</i></div>
-                        <div class="operate">
-                            <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                            <a href="#" class="sui-btn btn-bordered">对比</a>
-                            <a href="#" class="sui-btn btn-bordered">关注</a>
-                        </div>
-                    </li>
-                    <li class="yui3-u-1-5">
-                        <div class="p-img"><a href="item.html"><img src="uploads/mobile.png"></a></div>
-                        <div class="price"><strong><em>¥</em><i>6088.00</i></strong></div>
-                        <div class="attr"><em>Apple苹果iPhone 6s (A1699)</em></div>
-                        <div class="commit"><i class="command">已有2000人评价</i></div>
-                        <div class="operate">
-                            <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
-                            <a href="#" class="sui-btn btn-bordered">对比</a>
-                            <a href="#" class="sui-btn btn-bordered">关注</a>
-                        </div>
-                    </li>
+                    {{/each}}
+                    {{else}}
+                    <div class="sui-msg msg-large msg-block msg-tips">
+                        <div class="msg-con">亲，没有找到该条件下的商品！</div>
+                        <s class="msg-icon"></s>
+                    </div>
+                    {{/if}}
                 </ul>
             </div>
             <div class="fr page">
