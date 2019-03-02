@@ -8,26 +8,23 @@
 {{/block}}
 
 {{block 'content'}}
-<!--list-content-->
 <div class="main">
     <div class="py-container">
-        <!--bread-->
         <div class="bread">
             <ul class="fl sui-breadcrumb">
                 {{if breadcrumb}}
-                    {{if breadcrumb.parent && breadcrumb.parent.parent}}
-                        <li><a href="/list/{{breadcrumb.parent.parent.id}}">{{breadcrumb.parent.parent.name}}</a></li>
-                    {{/if}}
-                    {{if breadcrumb.parent}}
-                        <li><a href="/list/{{breadcrumb.parent.id}}">{{breadcrumb.parent.name}}</a></li>
-                    {{/if}}
-                        <li class="active">{{breadcrumb.name}}</li>
+                {{if breadcrumb.parent && breadcrumb.parent.parent}}
+                <li><a href="/list/{{breadcrumb.parent.parent.id}}">{{breadcrumb.parent.parent.name}}</a></li>
+                {{/if}}
+                {{if breadcrumb.parent}}
+                <li><a href="/list/{{breadcrumb.parent.id}}">{{breadcrumb.parent.name}}</a></li>
+                {{/if}}
+                <li class="active">{{breadcrumb.name}}</li>
                 {{else}}
-                    <li class="active">搜索 “{{q}}” 的结果：</li>
+                <li class="active">搜索 “{{q}}” 的结果：</li>
                 {{/if}}
             </ul>
         </div>
-        <!--selector-->
         <div class="clearfix selector">
             <div class="type-wrap">
                 <div class="fl key">摄像头像素</div>
@@ -55,7 +52,6 @@
                 </div>
             </div>
         </div>
-        <!--details-->
         <div class="details">
             <div class="sui-navbar">
                 <div class="navbar-inner filter">
@@ -77,7 +73,6 @@
                         {{else}}
                         <li><a href="/list/{{breadcrumb.id}}?sort=-price">价格</a></li>
                         {{/if}}
-                        <!-- 不带面包屑 -->
                         {{else}}
                         <li class="{{sort == 'commend' ? 'active' : ''}}"><a href="/search?q={{q}}&sort=commend">综合</a>
                         </li>
@@ -102,15 +97,15 @@
             </div>
             <div class="goods-list">
                 <ul class="yui3-g">
-                    {{if list.length>1}}
+                    {{if list.length>0}}
                     {{each list}}
                     <li class="yui3-u-1-5">
-                        <div class="p-img"><a href="/list/{{$value.id}}"><img src="{{$value.thumbnail}}"></a></div>
+                        <div class="p-img"><a href="/item/{{$value.id}}"><img src="{{$value.thumbnail}}"></a></div>
                         <div class="price"><strong><em>¥</em><i>{{$value.price}}</i></strong></div>
                         <div class="attr"><em>{{$value.name}}</em></div>
                         <div class="commit"><i class="command">已有2000人评价</i></div>
                         <div class="operate">
-                            <a href="cart-add.html" class="sui-btn btn-bordered btn-danger">加入购物车</a>
+                            <a href="/cart/add/{{$value.id}}" class="sui-btn btn-bordered btn-danger">加入购物车</a>
                             <a href="#" class="sui-btn btn-bordered">对比</a>
                             <a href="#" class="sui-btn btn-bordered">关注</a>
                         </div>

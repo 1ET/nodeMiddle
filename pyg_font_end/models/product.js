@@ -1,9 +1,12 @@
 const instance = require('./instanceAxios')
 // 获取猜你喜欢数据
-exports.getLike = () => {
+exports.getLike = (num) => {
     return instance.get('/products?type=like&limit=6')
         .then(res => res.data)
-        .catch(err => Promise.reject(err))
+        .catch(err => {
+            console.log('猜你喜欢')
+            Promise.reject(err)
+        })
 }
 
 //获取list分类下的商品列表 包含 分页信息
@@ -33,4 +36,14 @@ exports.getIndexBySearch = (q, page, per_page, sort) => {
             // res.headers 响应的头  包含分页信息
         }))
         .catch(err => Promise.reject(err))
+}
+
+// 获取详情页
+exports.getDetails = (id) => {
+    return instance.get(`products/${id}?include=introduce,category,pictures`)
+        .then(result => result.data)
+        .catch(err => {
+            console.log("详情页")
+            Promise.reject(err)
+        })
 }

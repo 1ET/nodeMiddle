@@ -1,0 +1,134 @@
+{{extend './layout/Hcommon.html'}}
+
+{{block 'styles'}}
+<!-- <link rel="stylesheet" href="/assets/css/page-item.css">
+<link rel="stylesheet" href="/assets/css/xzoom.css"> -->
+{{/block}}
+
+{{block 'scripts'}}
+<!-- <script src="/assets/js/sui.tab.js"></script>
+<script src="/assets/js/xzoom.min.js"></script>
+<script>
+  $(function ($) {
+    $('.xzoom, .xzoom-gallery').xzoom({ tint: '#888', Xoffset: 15 })
+  })
+</script> -->
+{{/block}}
+
+{{block 'content'}}
+<div>123</div>
+<!-- <div class="main">
+  <div class="py-container">
+    <div class="crumb-wrap">
+      <ul class="sui-breadcrumb">
+        <li><a href="/list/{{details.category.parent.parent.id}}">{{details.category.parent.parent.name}}</a></li>
+        <li><a href="/list/{{details.category.parent.id}}">{{details.category.parent.name}}</a></li>
+        <li><a href="/list/{{details.category.id}}">{{details.parent.name}}</a></li>
+        <li class="active">{{details.name}}</li>
+      </ul>
+    </div>
+    <div class="product-info">
+      <div class="fl preview-wrap">
+        <div class="zoom">
+          <div id="preview" class="spec-preview">
+            <img class="xzoom" xoriginal="{{details.pictures[0].large}}" src="{{details.pictures[0].middle}}"
+              width="100%">
+          </div>
+          <div class="spec-scroll">
+            {{each details.pictures}}
+            <a href="{{$value.large}}"><img class="xzoom-gallery" src="{{$value.large}}" width="60"></a>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      <div class="fr itemInfo-wrap">
+        <div class="sku-name">
+          <h4>{{details.name}}</h4>
+        </div>
+        <div class="summary">
+          <div class="summary-wrap">
+            <div class="fl title"><i>价　　格</i></div>
+            <div class="fl price"><i>¥</i><em>{{details.price}}</em></div>
+            <div class="fr remark"><i>累计评价</i><em>612188</em></div>
+          </div>
+        </div>
+        <div class="support">
+          <div class="summary-wrap">
+            <div class="fl title"><i>支　　持</i></div>
+            <div class="fl fix-width"><em class="t-gray">以旧换新，闲置手机回收 4G套餐超值抢 礼品购</em></div>
+          </div>
+        </div>
+        <div class="clearfix choose">
+          <div id="specification" class="summary-wrap clearfix">
+            <dl>
+              <dt class="fl title"><i>选择颜色</i></dt>
+              <dd>
+                <a href="#" class="selected">金色</a>
+                <a href="#">银色</a>
+                <a href="#">黑色</a>
+              </dd>
+            </dl>
+            <dl>
+              <dt class="fl title"><i>内存容量</i></dt>
+              <dd>
+                <a href="#" class="selected">16G</a>
+                <a href="#">64G</a>
+                <a href="#">128G</a>
+              </dd>
+            </dl>
+          </div>
+
+          <div class="summary-wrap">
+            <div class="controls">
+              <input autocomplete="off" type="text" value="1" minnum="1" class="itxt">
+              <a href="#" class="increment plus">+</a>
+              <a href="#" class="increment mins">-</a>
+            </div>
+            <a href="/cart/add/{{details.id}}" class="sui-btn  btn-danger addshopcar">加入购物车</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix product-detail">
+      <div class="fl aside">
+        <ul class="sui-nav nav-tabs tab-wraped">
+          <li class="active">
+            <a href="#index" data-toggle="tab"><span>相关分类</span></a>
+          </li>
+          <li>
+            <a href="#profile" data-toggle="tab"><span>推荐品牌</span></a>
+          </li>
+        </ul>
+        <div class="tab-content tab-wraped">
+          <div id="index" class="tab-pane active">
+            <ul class="part-list unstyled">
+              <li>手机</li>
+              <li>手机壳</li>
+              <li>内存卡</li>
+              <li>Iphone配件</li>
+              <li>贴膜</li>
+              <li>手机耳机</li>
+              <li>移动电源</li>
+              <li>平板电脑</li>
+            </ul>
+            <ul class="goods-list unstyled">
+              {{each likes}}
+              <li>
+                <div class="p-img"><img src="{{$value.thumbnail}}"></div>
+                <div class="attr"><em>{{$value.name}}</em></div>
+                <div class="price"><strong>￥{{$value.price}}</strong></div>
+                <div class="operate"><a href="/cart/add?id={{$value.id}}" class="sui-btn btn-bordered">加入购物车</a></div>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+          <div id="profile" class="tab-pane">
+            <p>推荐品牌</p>
+          </div>
+        </div>
+      </div>
+      {{@details.introduce}}
+    </div>
+  </div>
+</div> -->
+{{/block}}
