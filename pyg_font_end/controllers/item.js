@@ -10,7 +10,7 @@ exports.index = (req, res, next) => {
                 res.locals.likes = data[1]
                 // res.json(res.locals.details)
                 console.log('获取数据完成')
-                res.render('itemlist.html')
+                res.render('item.html')
             }
         )
         .catch(err => {

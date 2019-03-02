@@ -6,6 +6,7 @@ const path = require('path')
 const favicon = require('express-favicon');
 const middlewares = require('./middlewave')
 const routers = require('./router')
+const configs = require('./configs')
 
 // 实例化app对象
 const app = express()
@@ -21,8 +22,21 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')))
 app.listen(5000, () => {
     console.log('正在监听端口5000')
 })
-// 定制site信息
+// 定制中间件信息
 app.use(middlewares.global)
+
+// 配置session信息
+// session持久化
+const session = require('express-session')
+const MySqlSession = require('express-mysql-session')(session)
+const sessionStore = new MySqlSession(configs.mysql)
+app.use(session({
+    key: 'PYGIDS',  //session id
+    secret: 'pyg_secret',   //加密字符
+    store: sessionStore,    //持久化对象
+    resave: false,   //重新保存session  当session有有效期的时候回设置成true
+    saveUninitialized: false //是否在服务器启动的时候初始化session对象 还是在使用session的时候初始化session对象
+}))
 
 // 挂载路由
 app.use(routers)
