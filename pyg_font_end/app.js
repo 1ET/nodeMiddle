@@ -64,7 +64,7 @@ app.use((err, req, res, next) => {
     const env = req.app.get('env')
     // console.log(env)
     // console.log(err.status)
-    if (env === 'production') {
+    if (env === 'development') {
         new Youch(err, req).toHTML().then((html) => {
             res.send(html)
         })

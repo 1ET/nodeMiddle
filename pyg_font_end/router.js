@@ -12,5 +12,6 @@ router.get('/search', listControllers.search)
 router.get('/item/:id', itemControllers.index)
 router.get('/cart/add', shopCartitemControllers.addCart)
 router.get('/cart/addCartSuccess', shopCartitemControllers.addCartSuccess)
+router.get('/cart',shopCartitemControllers.edit)
 
 module.exports = router

@@ -45,3 +45,12 @@ exports.getDetails = (id) => {
             Promise.reject(err)
         })
 }
+
+// 获取基本详情页
+exports.getBaseDetails = (id) => {
+    return instance.get(`products/${id}?include=introduce,category,pictures`)
+        .then(result => result.data)
+        .catch(err => {
+            Promise.reject(err)
+        })
+}
