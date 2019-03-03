@@ -26,3 +26,9 @@ exports.mysql = {
     password: 'root',
     database: 'newshop'
 }
+
+// 4.配置session信息
+exports.cartCookie = {
+    key:'pyg64_cart_info',
+    expires:1000*60*60*24*15
+}

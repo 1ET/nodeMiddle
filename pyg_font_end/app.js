@@ -19,11 +19,9 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 // 处理ico小图标
 app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
-app.listen(5000, () => {
-    console.log('正在监听端口5000')
+app.listen(3000, () => {
+    console.log('正在监听端口3000')
 })
-// 定制中间件信息
-app.use(middlewares.global)
 
 // 配置session信息
 // session持久化
@@ -37,6 +35,15 @@ app.use(session({
     resave: false,   //重新保存session  当session有有效期的时候回设置成true
     saveUninitialized: false //是否在服务器启动的时候初始化session对象 还是在使用session的时候初始化session对象
 }))
+
+
+// 定制cookie中间件
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
+// 定制信息中间件
+app.use(middlewares.global)
+
 
 // 挂载路由
 app.use(routers)

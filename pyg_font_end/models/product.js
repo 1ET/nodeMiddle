@@ -4,7 +4,6 @@ exports.getLike = (num) => {
     return instance.get('/products?type=like&limit=6')
         .then(res => res.data)
         .catch(err => {
-            console.log('猜你喜欢')
             Promise.reject(err)
         })
 }
@@ -43,7 +42,6 @@ exports.getDetails = (id) => {
     return instance.get(`products/${id}?include=introduce,category,pictures`)
         .then(result => result.data)
         .catch(err => {
-            console.log("详情页")
             Promise.reject(err)
         })
 }
