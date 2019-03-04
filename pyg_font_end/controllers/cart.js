@@ -22,7 +22,6 @@ exports.addCart = (req, res, next) => {
         }
         // 更新cookie
         const expires = new Date(Date.now() + configs.cartCookie.expires)
-        console.log(6666)
         res.cookie(configs.cartCookie.key, JSON.stringify(cartList), { expires })        // 加入购物车操作
         res.redirect(`/cart/addCartSuccess?id=${id}&num=${num}`)
     } else {
@@ -49,6 +48,52 @@ exports.addCartSuccess = (req, res, next) => {
         .catch(err => next(err))
 }
 
-exports.edit = (req, res, next) => {
+// 展示购物车页面
+exports.index = (req, res, next) => {
+    res.locals.user = req.session.user
     res.render('cart.html')
 }
+
+exports.list = (req, res, next) => {
+    if (!req.session.user) {
+        // 获取cookie中的所有数据的id
+        const cartCookie = req.cookies[configs.cartCookie.key] || '[]'
+        const cartList = JSON.parse(cartCookie)
+        const promiseArr = cartList.map((item, i) => productModel.getBaseDetails(item.id))
+        Promise.all(promiseArr)
+            .then(data =>
+                res.json(
+                    {
+                        code: 200,
+                        list: data.map((item, i) => ({
+                            id: item.id,
+                            name: item.name,
+                            thumbnail: item.thumbnail,
+                            price: item.price,
+                            amount: item.amount,
+                            num: +cartList[i].num
+                        }))
+
+                    }
+                ))
+            .catch(err => {
+                res.json({ message: '获取商品信息失败', code: 500 })
+            })
+
+
+    } else {
+    }
+}
+
+exports.edit = (req, res, next) => {
+    if (!req.locals.user) {
+
+    } else {
+
+    }
+}
+
+
+
+
+

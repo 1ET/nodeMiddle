@@ -5,6 +5,48 @@
 {{/block}}
 
 {{block 'scripts'}}
+<script type="text/template" id="list">
+  <? for(var i=0;i<list.length;i++){ ?>
+  <? var item = list[i] ?>
+  <ul class="goods-list yui3-g">
+      <li class="yui3-u-1-24"><input type="checkbox" data-id="<?=item.id?>"></li>
+      <li class="yui3-u-12-24">
+          <div class="good-item">
+              <div class="item-img">
+                  <a href="/item/<?=item.id?>"><img src="<?=item.thumbnail?>"></a>
+              </div>
+              <div class="item-msg"><a href="/item/<?=item.id?>"><?=item.name?></a></div>
+          </div>
+      </li>
+      <li class="yui3-u-3-24">
+          <span class="price">￥<?=item.price?></span>
+      </li>
+      <li class="yui3-u-3-24">
+          <a href="javascript:;" class="increment mins">-</a>
+          <input type="text" readonly class="itxt" data-id="<?=item.id?>" value="<?=item.num?>"
+                 data-max="<?=item.amount?>" autocomplete="off">
+          <a href="javascript:;" class="increment plus">+</a>
+      </li>
+      <li class="yui3-u-4-24">
+          <span class="sum">￥<?=(item.num*item.price).toFixed(2)?></span>
+      </li>
+      <li class="yui3-u-1-24">
+          <a href="javascript:;">删除</a>
+      </li>
+  </ul>
+  <? } ?>
+</script>
+<script src="/assets/js/template-web.js"></script>
+<script>
+  $(function () {
+    template.defaults.rules[0].test = /<\?(#?)((?:==|=#|[=-])?)[ \t]*([\w\W]*?)[ \t]*(-?)\?>/
+    $.get('/cart/list', function (data) {
+      var html = template('list', data)
+      $('.cart-list').html(html)
+    })
+  })
+</script>
+
 {{/block}}
 
 {{block 'content'}}
@@ -30,33 +72,7 @@
       <div class="cart-item-list">
         <div class="cart-body">
           <div class="cart-list">
-            <ul class="goods-list yui3-g">
-              <li class="yui3-u-1-24"><input type="checkbox" name="choose" value="701" checked=""></li>
-              <li class="yui3-u-12-24">
-                <div class="good-item">
-                  <div class="item-img">
-                    <a href="/item/701"><img
-                        src="https://image5.suning.cn/uimg/b2c/newcatentries/0000000000-000000000611256555_2_200x200.jpg"></a>
-                  </div>
-                  <div class="item-msg"><a href="/item/701">TCL 55A950C 55英寸 前置音响 人工智能 金属超薄 64位32核 4K+HDR 超高清智能
-                      曲面电视（枪色）</a></div>
-                </div>
-              </li>
-              <li class="yui3-u-3-24">
-                <span class="price">￥3999.00</span>
-              </li>
-              <li class="yui3-u-3-24">
-                <a href="#" class="increment mins">-</a>
-                <input type="text" class="itxt" value="1" minnum="1" autocomplete="off">
-                <a href="/cart/update?id=701&amp;amount=2" class="increment plus">+</a>
-              </li>
-              <li class="yui3-u-4-24">
-                <span class="sum">￥3999.00</span>
-              </li>
-              <li class="yui3-u-1-24">
-                <a href="/cart/delete?id=701">删除</a>
-              </li>
-            </ul>
+            <!-- 模板替换处 -->
           </div>
         </div>
       </div>

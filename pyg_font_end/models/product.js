@@ -54,3 +54,4 @@ exports.getBaseDetails = (id) => {
             Promise.reject(err)
         })
 }
+
