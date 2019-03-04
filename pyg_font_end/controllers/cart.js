@@ -86,8 +86,22 @@ exports.list = (req, res, next) => {
 }
 
 exports.edit = (req, res, next) => {
-    if (!req.locals.user) {
-
+    if (!req.session.user) {
+        // ？？？
+        //约定传参 id num 请求方式 post
+        const { id, num } = req.body
+        console.log(667788)
+        //获取购物车数据
+        const cartCookie = req.cookies[configs.cartCookie.key] || '[]'
+        const cartList = JSON.parse(cartCookie)
+        //修改
+        const product = cartList.find((item, i) => item.id == id)
+        product.num = +num
+        //存储
+        const expires = new Date(Date.now() + configs.cartCookie.expires)
+        res.cookie(configs.cartCookie.key, JSON.stringify(cartList), { expires })
+        //成功
+        res.json({ code: 200, msg: '修改成功' })
     } else {
 
     }

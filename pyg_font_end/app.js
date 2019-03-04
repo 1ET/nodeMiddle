@@ -19,6 +19,10 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 // 处理ico小图标
 app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
+/*处理请求体提交数据*/
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
 app.listen(3000, () => {
     console.log('正在监听端口3000')
 })

@@ -24,7 +24,7 @@
       <li class="yui3-u-3-24">
           <a href="javascript:;" class="increment mins">-</a>
           <input type="text" readonly class="itxt" data-id="<?=item.id?>" value="<?=item.num?>"
-                 data-max="<?=item.amount?>" autocomplete="off">
+                 data-max="<?=item.amount?>" data-min="1" autocomplete="off">
           <a href="javascript:;" class="increment plus">+</a>
       </li>
       <li class="yui3-u-4-24">
@@ -36,15 +36,83 @@
   </ul>
   <? } ?>
 </script>
+
 <script src="/assets/js/template-web.js"></script>
 <script>
   $(function () {
     template.defaults.rules[0].test = /<\?(#?)((?:==|=#|[=-])?)[ \t]*([\w\W]*?)[ \t]*(-?)\?>/
+    //总数计算和金额计算
+    // 1.获取所有选中的input 总数=选中input的num 总金额=选中input的price*num
+    var calculation = function () {
+      var $checkedInputList = $('.cart-list [type="checkbox"]:checked')
+      var count = 0
+      var total = 0
+      $checkedInputList.each(function (i, item) {
+        var id = item.dataset.id  //获取自定义属性
+        var product = list.find((item, i) => item.id == id)
+        count += product.num
+        total += product.num * product.price
+      })
+      // 更新页面
+      console.log(total)
+      $('#stroge').html(count)
+      $('.summoney').html('￥' + total.toFixed(2))
+    }
+    // 渲染模板
     $.get('/cart/list', function (data) {
       var html = template('list', data)
+      ///tips 有点不懂
+      window.list = data.list
       $('.cart-list').html(html)
     })
+    // 全选
+    $('.cart-th').on('change', '[type="checkbox"]', function () {
+      $('.cart-list [type="checkbox"]').prop('checked', $(this).prop('checked'))
+      calculation()
+    })
+    // 单选
+    $('.cart-list').on('change', '[type="checkbox"]', function () {
+      // 使用和上面相同的方法
+      const checkboxLength = $('.cart-list [type="checkbox"]:checked').length
+      const allCheckbox = $('.cart-list > ul').length
+      $('.cart-th [type="checkbox"]').prop('checked', checkboxLength === allCheckbox)
+      calculation()
+    })
+    // 加减 需要和后端交互
+
+    $('.cart-list').on('click', '.increment', function () {
+      var $input = $(this).siblings('input')
+
+      var num = $input.val()
+      var max = $input.data('max')
+      var min = $input.data('min')
+      var id = $input.data('id')
+      if ($(this).has('.mins')) {
+        if (num < 2) return false;
+        num--
+      } else {
+        if (num >= max) return false;
+        num++
+      }
+      $.post('/cart/edit', { id, num }, (data) => {
+        if (data.code == 200) {
+          $input.val(num)
+          var product = list.find((item, i) => item.id == id)
+          product.num = num
+          $(this).parent().next().find('span').html('￥' + (product.num * product.price).toFixed(2))
+          calculation()
+        } else {
+          alert(data.msg)
+        }
+
+      })
+
+    })
   })
+
+
+
+
 </script>
 
 {{/block}}
@@ -62,7 +130,7 @@
     {{/if}}
     <div class="cart-main">
       <div class="yui3-g cart-th">
-        <div class="yui3-u-1-24"><input type="checkbox" checked=""></div>
+        <div class="yui3-u-1-24"><input type="checkbox"></div>
         <div class="yui3-u-12-24">商品</div>
         <div class="yui3-u-3-24">单价（元）</div>
         <div class="yui3-u-3-24">数量</div>
@@ -80,8 +148,8 @@
     <div class="cart-tool">
       <div class="money-box">
         <div class="sumprice">
-          <span><strong>1</strong> 件商品</span><br>
-          <span><em>总价（不含运费）：</em><i class="summoney">¥16283.00</i></span>
+          <span><strong id="stroge">0</strong> 件商品</span><br>
+          <span><em>总价（不含运费）：</em><i class="summoney">¥0</i></span>
         </div>
         <div class="sumbtn">
           <a class="sum-btn" href="checkout.html">结算</a>
