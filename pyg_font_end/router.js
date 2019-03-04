@@ -15,5 +15,6 @@ router.get('/cart/addCartSuccess', shopCartitemControllers.addCartSuccess)
 router.get('/cart',shopCartitemControllers.index)
 router.get('/cart/list',shopCartitemControllers.list)
 router.post('/cart/edit',shopCartitemControllers.edit)
+router.post('/cart/delete',shopCartitemControllers.delete)
 
 module.exports = router

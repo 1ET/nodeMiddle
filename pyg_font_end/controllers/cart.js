@@ -107,7 +107,20 @@ exports.edit = (req, res, next) => {
     }
 }
 
-
-
+exports.delete = (req, res, next) => {
+    const { id } = req.body
+    if (!req.session.user) {
+        const cartCookie = req.cookies[configs.cartCookie.key] || '[]'
+        const cartList = JSON.parse(cartCookie)
+        const nub = cartList.findIndex((item, i) => item.id == id)
+        cartList.splice(nub, 1)
+        console.log(cartList)
+        const expires = new Date(Date.now() + configs.cartCookie.expires)
+        res.cookie(configs.cartCookie.key, JSON.stringify(cartList), { expires })
+        res.json({ code: 200, msg: '删除成功' })
+    } else {
+        // TODO
+    }
+}
 
 

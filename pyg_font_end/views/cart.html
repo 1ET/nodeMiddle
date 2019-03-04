@@ -23,7 +23,7 @@
       </li>
       <li class="yui3-u-3-24">
           <a href="javascript:;" class="increment mins">-</a>
-          <input type="text" readonly class="itxt" data-id="<?=item.id?>" value="<?=item.num?>"
+          <input type="text" class="itxt" data-id="<?=item.id?>" value="<?=item.num?>"
                  data-max="<?=item.amount?>" data-min="1" autocomplete="off">
           <a href="javascript:;" class="increment plus">+</a>
       </li>
@@ -31,7 +31,7 @@
           <span class="sum">￥<?=(item.num*item.price).toFixed(2)?></span>
       </li>
       <li class="yui3-u-1-24">
-          <a href="javascript:;">删除</a>
+          <a href="JavaScript:;" class="deleteList" data-id="<?=item.id?>">删除</a>
       </li>
   </ul>
   <? } ?>
@@ -54,7 +54,7 @@
         total += product.num * product.price
       })
       // 更新页面
-      console.log(total)
+      // console.log(total)
       $('#stroge').html(count)
       $('.summoney').html('￥' + total.toFixed(2))
     }
@@ -79,20 +79,19 @@
       calculation()
     })
     // 加减 需要和后端交互
-
     $('.cart-list').on('click', '.increment', function () {
       var $input = $(this).siblings('input')
-
       var num = $input.val()
       var max = $input.data('max')
       var min = $input.data('min')
       var id = $input.data('id')
-      if ($(this).has('.mins')) {
+      if ($(this).hasClass('mins')) {
         if (num < 2) return false;
         num--
       } else {
         if (num >= max) return false;
         num++
+        console.log(num, max, min, id)
       }
       $.post('/cart/edit', { id, num }, (data) => {
         if (data.code == 200) {
@@ -107,6 +106,19 @@
 
       })
 
+    })
+    // 删除
+    $('.cart-list').on('click', '.deleteList', function () {
+      const id = this.dataset.id
+      $.post('/cart/delete', { id }, (data) => {
+        console.log(data)
+        if (data.code === 200) {
+          $(this).parents('.goods-list').remove()
+          calculation()
+        } else {
+          alert(data.msg)
+        }
+      })
     })
   })
 
