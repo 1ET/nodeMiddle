@@ -8,4 +8,5 @@ var instance = axios.create({
         password: api.password
     },
 })
+// 封装axios
 module.exports = instance

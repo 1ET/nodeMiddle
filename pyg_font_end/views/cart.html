@@ -134,8 +134,9 @@
   <div class="allgoods">
     <h4>全部商品<span></span></h4>
     {{if !session}}
+    {{returnUrl}}
     <div class="sui-msg msg-large msg-tips">
-      <div class="msg-con">您还没有登录！登录后购物车的商品将保存到您账号中 <a href="javascript:void(0);"
+      <div class="msg-con">您还没有登录！登录后购物车的商品将保存到您账号中 <a href="/account/login?returnUrl=/cart"
           class="sui-btn btn-xlarge btn-danger">点我登录</a></div>
       <s class="msg-icon"></s>
     </div>
@@ -164,7 +165,7 @@
           <span><em>总价（不含运费）：</em><i class="summoney">¥0</i></span>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="checkout.html">结算</a>
+          <a class="sum-btn" href="/checkout">结算</a>
         </div>
       </div>
     </div>

@@ -29,6 +29,13 @@ exports.mysql = {
 
 // 4.配置session信息
 exports.cartCookie = {
-    key:'pyg64_cart_info',
-    expires:1000*60*60*24*15
+    key: 'pyg64_cart_info',
+    expires: 1000 * 60 * 60 * 24 * 15
+}
+
+// 5.记住我功能实现
+/*5. 自动登录相关配置*/
+exports.loginCookie = {
+    key: 'pyg64_user_info',
+    expires: 7 * 24 * 60 * 60 * 1000
 }

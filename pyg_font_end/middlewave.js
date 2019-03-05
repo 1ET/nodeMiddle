@@ -18,4 +18,12 @@ exports.global = (req, res, next) => {
             .catch(err => next(err))
     }
 
-} 
+}
+
+// 拦截登录功能
+exports.checkLogin = (req, res, next) => {
+    if (!req.session.user) {
+        return res.redirect('/login?ruturnUrl' + encodeURIComponent(req.url))
+    }
+    next()
+}

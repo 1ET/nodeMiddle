@@ -1,0 +1,81 @@
+{{extend './layout/basic.html'}}
+
+{{block 'styles'}}
+<link rel="stylesheet" href="/assets/css/page-account.css">
+{{/block}}
+{{block 'body'}}
+<div class="login-box">
+  <!--head-->
+  <div class="py-container logoArea"><a href="home.html" class="logo"></a></div>
+  <!--loginArea-->
+  <div class="loginArea">
+    <div class="py-container login">
+      <div class="loginform">
+        <ul class="sui-nav nav-tabs tab-wraped">
+          <li><a href="#index" data-toggle="tab">扫描登录</a></li>
+          <li class="active"><a href="#profile" data-toggle="tab">账户登录</a></li>
+        </ul>
+        <div class="tab-content tab-wraped">
+          <div id="index" class="tab-pane">
+            <p>啦啦啦</p>
+          </div>
+          <div id="profile" class="tab-pane active">
+            <form class="sui-form" autocomplete="off" action="/account/login" method="POST">
+              <input type="hidden" name="returnUrl" value="{{returnUrl}}">
+              <div class="input-prepend">
+                <span class="add-on loginname"></span>
+                <input type="text" class="span2 input-xfat" name="username" placeholder="用户名/邮箱">
+              </div>
+              <div class="input-prepend">
+                <span class="add-on loginpwd"></span>
+                <input type="password" name="password" class="span2 input-xfat" placeholder="请输入密码">
+              </div>
+              <div class="input-prepend" style="width:180px">
+                <span class="add-on logincaptcha"></span>
+                <input type="text" name="captcha" class="span2 input-xfat" placeholder="请输入验证码"
+                  style="text-transform:lowercase;width:100px">
+                {{@svg}}
+              </div>
+              <!-- 显示提示信息位置 -->
+              {{if msg}}
+              <div>
+                <div class="sui-msg msg-error" style="margin-left:100px">
+                  <div class="msg-con">{{msg}}</div>
+                  <s class="msg-icon"></s>
+                </div>
+              </div>
+              {{/if}}
+              <div class="setting">
+                <label class="checkbox inline"><input type="checkbox" name="auto" value="1"> 自动登录</label>
+                <span class="forget">忘记密码？</span>
+              </div>
+              <div class="logined">
+                <button class="sui-btn btn-block btn-xlarge btn-danger">登&nbsp;&nbsp;录</button>
+              </div>
+            </form>
+            <a href="register.html">立即注册</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--foot-->
+  <div class="py-container copyright">
+    <ul>
+      <li>关于我们</li>
+      <li>联系我们</li>
+      <li>联系客服</li>
+      <li>商家入驻</li>
+      <li>营销中心</li>
+      <li>手机品优购</li>
+      <li>销售联盟</li>
+      <li>品优购社区</li>
+    </ul>
+    <div class="address">地址：北京市昌平区建材城西路金燕龙办公楼一层 邮编：100096 电话：400-618-4000 传真：010-82935100</div>
+    <div class="beian">京ICP备08001421号京公网安备110108007702
+    </div>
+  </div>
+</div>{{/block}}
+{{block 'scripts'}}
+<script src="/assets/js/sui.tab.js"></script>
+{{/block}}
