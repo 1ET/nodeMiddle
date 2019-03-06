@@ -3,6 +3,7 @@ const createError = require('http-errors')
 const userModel = require('../models/user')
 const configs = require('../configs')
 const cartModel = require('../models/cart')
+const userCookie = require('../configs')
 
 // 页面展示
 exports.login = (req, res, next) => {
@@ -35,7 +36,7 @@ exports.loginLogic = (req, res, next) => {
             if (auto) {
                 res.cookie(userCookie.loginCookie.key,
                     JSON.stringify({ id: user.id, pwd: user.password }),
-                    { expires: new Date(Data.now + userCookie.loginCookie.expires), httpOnly: true })
+                    { expires: new Date(Date.now + userCookie.loginCookie.expires), httpOnly: true })
             }
             // 登录成功 合并购物车
             // 把本地的取出来 添加到服务器
@@ -55,7 +56,6 @@ exports.loginLogic = (req, res, next) => {
             if (err.status === 444) {
                 res.locals.msg = err.message
             } else {
-                console.log(err)
                 res.locals.msg = '登录失败'
             }
             // 更改验证码 重新渲染登录页面
@@ -68,4 +68,9 @@ exports.loginLogic = (req, res, next) => {
             res.locals.returnUrl = req.query.returnUrl || '/member'
             res.render('login.html')
         })
+}
+
+exports.index = (req, res, next) => {
+    delete req.session.user
+    res.redirect('/account/login')
 }

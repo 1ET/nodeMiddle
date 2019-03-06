@@ -6,20 +6,28 @@
                 <div class="shortcut">
                     <ul class="fl">
                         <li class="f-item">品优购欢迎您！</li>
-                        <li class="f-item">请
-                            <a href="login.html">登录</a>
+                        <li class="f-item">
+                            {{if !user}}
+                            请
+                            <a href="/account/login">登录</a>
                             <span>
-                                <a href="register.html">免费注册</a>
+                                <a href="/register">免费注册</a>
                             </span>
+                            {{else}}
+                            <a href="/member">{{user.username}}</a>
+                            <span>
+                                <a href="/logout">退出</a>
+                            </span>
+                            {{/if}}
                         </li>
                     </ul>
                     <ul class="fr">
                         <li class="f-item">
-                            <a href="member-order.html">我的订单</a>
+                            <a href="/order">我的订单</a>
                         </li>
                         <li class="f-item space"></li>
                         <li class="f-item">
-                            <a href="member.html">我的品优购</a>
+                            <a href="/member">我的品优购</a>
                         </li>
                         <li class="f-item space"></li>
                         <li class="f-item">关注品优购</li>
@@ -41,7 +49,8 @@
                         <div class="search">
                             <form class="sui-form form-inline" action="/search">
                                 <div class="input-append">
-                                    <input type="text" id="autocomplete" name="q" type="text" class="input-error input-xxlarge" value="{{q}}">
+                                    <input type="text" id="autocomplete" name="q" type="text"
+                                        class="input-error input-xxlarge" value="{{q}}">
                                     <button class="sui-btn btn-xlarge btn-danger">搜索</button>
                                 </div>
                             </form>
@@ -64,9 +73,17 @@
                                 <span class="car"></span>
                                 <a class="sui-btn btn-default btn-xlarge" href="/cart">
                                     <span>我的购物车</span>
-                                    <i class="shopnum">0</i>
+                                    <i class="shopnum">{{headCart.cartNum}}</i>
                                 </a>
-                                <div class="clearfix shopcarlist"></div>
+                                <div class="clearfix shopcarlist">
+                                    <ul>
+                                        {{each headCart.cartList}}
+                                        <li>
+                                            {{$value}}
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

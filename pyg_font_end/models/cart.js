@@ -14,9 +14,14 @@ exports.list = (userId) => {
 
 exports.edit = (userId, id, num) => {
     return instance.patch(`users/${userId}/cart/${id}`, { amount: num })
-        .then(res => res.data)
-        .catch(err => Promise.reject(err))
+        .then(res => {
+            res.data
+        })
+        .catch(err => {
+            Promise.reject(err)
+        })
 }
+
 
 exports.remove = (userId, id) => {
     return instance.delete(`users/${userId}/cart/${id}`)

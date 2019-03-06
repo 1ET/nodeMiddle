@@ -24,7 +24,7 @@
       <li class="yui3-u-3-24">
           <a href="javascript:;" class="increment mins">-</a>
           <input type="text" class="itxt" data-id="<?=item.id?>" value="<?=item.num?>"
-                 data-max="<?=item.amount?>" data-min="1" autocomplete="off">
+                 data-max="<?=item.amount?>" data-min="1" autocomplete="off" readonly>
           <a href="javascript:;" class="increment plus">+</a>
       </li>
       <li class="yui3-u-4-24">
@@ -54,7 +54,6 @@
         total += product.num * product.price
       })
       // 更新页面
-      // console.log(total)
       $('#stroge').html(count)
       $('.summoney').html('￥' + total.toFixed(2))
     }
@@ -91,7 +90,6 @@
       } else {
         if (num >= max) return false;
         num++
-        console.log(num, max, min, id)
       }
       $.post('/cart/edit', { id, num }, (data) => {
         if (data.code == 200) {
@@ -100,6 +98,8 @@
           product.num = num
           $(this).parent().next().find('span').html('￥' + (product.num * product.price).toFixed(2))
           calculation()
+          const cartNum = list.reduce((prev, item) => prev + parseInt(item.num), 0)
+          $('.shopnum').html(cartNum)
         } else {
           alert(data.msg)
         }
@@ -111,10 +111,13 @@
     $('.cart-list').on('click', '.deleteList', function () {
       const id = this.dataset.id
       $.post('/cart/delete', { id }, (data) => {
-        console.log(data)
         if (data.code === 200) {
           $(this).parents('.goods-list').remove()
+          list.splice(list.findIndex((item, i) => item.id == id), 1)
           calculation()
+          const cartNum1 = list.reduce((prev, item) => prev + parseInt(item.num), 0)
+          $('.shopnum').html(parseInt(cartNum1 || 0))
+          $('.shopcarlist ul').html(list.reduce((prev, item) => prev + `<li>${item.name}</li>`, ''))
         } else {
           alert(data.msg)
         }
@@ -133,8 +136,7 @@
 <div class="py-container">
   <div class="allgoods">
     <h4>全部商品<span></span></h4>
-    {{if !session}}
-    {{returnUrl}}
+    {{if !user}}
     <div class="sui-msg msg-large msg-tips">
       <div class="msg-con">您还没有登录！登录后购物车的商品将保存到您账号中 <a href="/account/login?returnUrl=/cart"
           class="sui-btn btn-xlarge btn-danger">点我登录</a></div>
@@ -162,7 +164,7 @@
       <div class="money-box">
         <div class="sumprice">
           <span><strong id="stroge">0</strong> 件商品</span><br>
-          <span><em>总价（不含运费）：</em><i class="summoney">¥0</i></span>
+          <span><em>总价（不含运费）：</em><i class="summoney">¥0.00</i></span>
         </div>
         <div class="sumbtn">
           <a class="sum-btn" href="/checkout">结算</a>

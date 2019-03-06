@@ -17,7 +17,7 @@ exports.addCart = (req, res, next) => {
         const newItem = cartList.find((item, i) => item.id == id)
         if (newItem) {
             // 有点不懂
-            newItem.num += parseInt(num)
+            newItem.num = parseInt(newItem.num) + parseInt(num)
         } else {
             cartList.push({ id, num })
         }
@@ -108,11 +108,9 @@ exports.list = (req, res, next) => {
 }
 
 exports.edit = (req, res, next) => {
+    const { id, num } = req.body
     if (!req.session.user) {
-        // ？？？
         //约定传参 id num 请求方式 post
-        const { id, num } = req.body
-        console.log(667788)
         //获取购物车数据
         const cartCookie = req.cookies[configs.cartCookie.key] || '[]'
         const cartList = JSON.parse(cartCookie)
@@ -141,7 +139,6 @@ exports.delete = (req, res, next) => {
         const cartList = JSON.parse(cartCookie)
         const nub = cartList.findIndex((item, i) => item.id == id)
         cartList.splice(nub, 1)
-        console.log(cartList)
         const expires = new Date(Date.now() + configs.cartCookie.expires)
         res.cookie(configs.cartCookie.key, JSON.stringify(cartList), { expires })
         res.json({ code: 200, msg: '删除成功' })

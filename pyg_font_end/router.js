@@ -27,6 +27,8 @@ router.get('/account/login', loginControllers.login)
 // 验证
 router.post('/account/login', loginControllers.loginLogic)
 
+// 退出
+router.get('/logout', loginControllers.index)
 // 订单
 router.get('/checkout', middlewares.checkLogin, orderControllers.checkout)
 module.exports = router

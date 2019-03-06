@@ -21,7 +21,7 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')))
 
 /*处理请求体提交数据*/
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 
 app.listen(3000, () => {
     console.log('正在监听端口3000')
@@ -46,7 +46,7 @@ const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
 // 定制信息中间件
-app.use(middlewares.global)
+app.use(middlewares.global, middlewares.cartHeader)
 
 
 // 挂载路由

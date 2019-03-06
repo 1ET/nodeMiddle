@@ -35,7 +35,6 @@ exports.search = (req, res, next) => {
     Promise.all([listModel.getIndexBySearch(q, page, per_page, sort)])
         .then(data => {
             res.locals.q = q
-            console.log(q)
             res.locals.list = data[0].list
             res.locals.sort = sort
             res.locals.pageHtml = paginationUtil({ page: data[0].page, total: data[0].total, url: req.url })
