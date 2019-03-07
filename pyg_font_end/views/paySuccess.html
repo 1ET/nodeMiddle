@@ -1,0 +1,41 @@
+{{extend './layout/Hcommon.html'}}
+{{block 'styles'}}
+<link rel="stylesheet" href="/assets/css/page-cart.css">
+{{/block}}
+{{block 'scripts'}}
+<script src="/assets/js/sui.modal.js"></script>
+{{/block}}
+{{block 'content'}}
+<div class="checkout py-container">
+    <div class="order-status">订单支付成功，我们将尽快发货！</div>
+
+    <div class="checkout-steps">
+        <div class="step-tit">
+            <h5>送货清单</h5>
+        </div>
+        <div class="sendGoods">
+            <span>商品清单：</span>
+            {{each order.products item i}}
+            <ul class="yui3-g">
+                <li class="yui3-u-1-6">
+                    <img src="{{item.thumbnail}}">
+                </li>
+                <li class="yui3-u-2-3">
+                    <div class="desc">{{item.name}}</div>
+                </li>
+                <li class="yui3-u-1-12">
+                    <div class="price">￥{{item.price}}</div>
+                </li>
+                <li class="yui3-u-1-12">
+                    <div class="num">x<strong>{{item.amount}}</strong></div>
+                </li>
+            </ul>
+            {{/each}}
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="static fl"><i class="number sui-text-danger">{{order.total_amount}}</i> 件商品，总商品金额 <i
+            class="sui-text-danger">¥{{order.total_price}}</i></div>
+</div>
+{{/block}}
